@@ -110,6 +110,8 @@ how servers recieve ajax requests ...
      })
    })
   ``` 
+  if you are sending data to server 
+  `xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")`
 
 
 

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="target">
+  </div>
+  <button id="fire">fire</button>
+  <script>
+  function fetchText(){
+    var xhr = new XMLHttpRequest()
+    xhr.open("GET" , "text.txt" , true )
+    xhr.onreadystatechange = function(){
+      if(xhr.readyState == 4 && xhr.status == 200){
+        addText(xhr.responseText)
+      }
+    }
+    xhr.send()
+  }
+
+  function addText(text){
+    document.getElementById("target").innerHTML = text
+  }
+
+  document.getElementById("fire").addEventListener('click' , fetchText) 
+  </script>
+</body>
+</html>

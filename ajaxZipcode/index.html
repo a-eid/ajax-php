@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ajax zipcode</title>
+</head>
+<body>
+  zipcode: <input type="text" id="zipcode" value="77379"> 
+  <button id="fire">get location</button>
+  <p id="location"></p>
+
+  <script>
+    var api = "http://maps.googleapis.com/maps/api/geocode/json" 
+    function getLocation(zipcode , cb){
+      var url = api + "?address=" + zipcode 
+      var xhr = new XMLHttpRequest()
+      xhr.open("GET" , url , true) 
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+          cb(xhr.responseText)
+        }
+      }
+      xhr.send()
+    }
+
+    // getLocation("77379") 
+    function modify(text){
+      var info = JSON.parse(text) 
+      document.getElementById('location').innerHTML = info.results[0].formatted_address
+    }
+
+    document.getElementById("fire").addEventListener('click' , () => {
+      var zipcode = document.getElementById('zipcode').value 
+      var info = getLocation( zipcode , modify)
+    })
+
+  </script>
+</body>
+</html>

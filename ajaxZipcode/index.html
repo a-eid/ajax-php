@@ -13,11 +13,14 @@
 
   <script>
     var api = "http://maps.googleapis.com/maps/api/geocode/json" 
-    function getLocation(zipcode , cb){
+    function getLocation(zipcode , cb , loading ){
       var url = api + "?address=" + zipcode 
       var xhr = new XMLHttpRequest()
       xhr.open("GET" , url , true) 
       xhr.onreadystatechange = function(){
+        if(loading && xhr.readyState == 2){
+          loading() 
+        }
         if(xhr.readyState == 4 && xhr.status == 200){
           cb(xhr.responseText)
         }
@@ -27,13 +30,19 @@
 
     // getLocation("77379") 
     function modify(text){
+      var location = document.getElementById('location')
       var info = JSON.parse(text) 
-      document.getElementById('location').innerHTML = info.results[0].formatted_address
+      console.log( info.results.length )
+      if( !info.results.length ) 
+        return location.innerHTML = "error try again"
+      location.innerHTML = info.results[0].formatted_address
     }
 
     document.getElementById("fire").addEventListener('click' , () => {
       var zipcode = document.getElementById('zipcode').value 
-      var info = getLocation( zipcode , modify)
+      var info = getLocation( zipcode , modify , function(){
+        document.getElementById('location').innerHTML = "Loading..."
+      })
     })
 
   </script>

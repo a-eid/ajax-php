@@ -43,13 +43,46 @@ xhr.onreadystatechange = function(){
 xhr.send()
 ```
 
-## Example one load remote text async 
+# ch3 -> php server 
+how servers recieve ajax requests ... 
 
-```javascript 
+  ## Detecting ajax requests 
+    options 
+    -> pages assumes that all request to it ajax 
+    -> page detects ajax requests . 
+    (handle ajax differently than regular requests) 
 
+    regular requests and ajax requests look the same to the server . 
 
+    ```javascript
+      // convention 
+      // set header on client side  
+      xhr.setRequestHeader('X-Requested-With' , 'XMLHttpRequest')
+    ```
+    ```php
+      function is_ajax_request(){
+        // the header is set and equal to xmlhttprequest 
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+        $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'
+      }
 
-```
+      if(is_ajax_request())
+        echo "Ajax Request"
+      else 
+        echo "non ajax request" 
+
+    ```
+    Be aware that header are not secure they can be spoofed ...  
+
+    <!--Access-Control-Allow-Origin:*-->
+
+  ## respond from php with html partials .
+
+   ```php
+   // allow cores 
+   header("Access-Control-Allow-Origin: *");
+   ```
+
 
 
 

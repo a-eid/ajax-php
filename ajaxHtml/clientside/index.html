@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Respond from php with an html fragment/partial</title>
+</head>
+<body>
+  <h1>responding from php with html</h1>
+  <button id="fire">Fire</button>
+  <hr> 
+  <div id="target">replace here </div>
+  <script>
+
+   function ajax(url , cb){
+    var xhr = new XMLHttpRequest()
+    xhr.open("GET" , url , true ) 
+    xhr.onreadystatechange = function(){
+      if(xhr.readyState == 4){
+        cb(xhr.responseText)
+      } 
+    }
+    // not needed ? hmm
+    // xhr.setRequestHeader("Content-Type","application/json");
+    // xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+    xhr.send()
+   } 
+
+   document.querySelector('#fire').addEventListener('click' , ()=>{
+     var url = "http://localhost:3000" 
+     ajax(url , (html)=>{
+       document.getElementById('target').innerHTML = html
+     })
+   })
+
+  </script>
+</body>
+</html>

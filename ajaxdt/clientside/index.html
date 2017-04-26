@@ -8,9 +8,12 @@
 </head>
 <body>
   <h1>responding from php with html</h1>
-  <button id="fire">Fire</button>
+  <button id="fireHtml">load html</button>
   <hr> 
-  <div id="target">replace here </div>
+  <div id="targetHtml"> html goes here  </div>
+  <hr>
+  <button id="fireJson">load json</button>
+  <div id="targetJson">json data goes here</div>
   <script>
 
    function ajax(url , cb){
@@ -27,11 +30,19 @@
     xhr.send()
    } 
 
-   document.querySelector('#fire').addEventListener('click' , ()=>{
-     var url = "http://localhost:3000" 
+   document.querySelector('#fireHtml').addEventListener('click' , ()=>{
+     var url = "http://localhost:3000/html.php" 
      ajax(url , (html)=>{
-       document.getElementById('target').innerHTML = html
+       document.getElementById('targetHtml').innerHTML = html
      })
+   })
+
+   document.querySelector('#fireJson').addEventListener('click', ()=>{
+      var url = "http://localhost:3000/json.php"
+      ajax(url , (data)=>{
+        json = JSON.parse(data)  
+        document.querySelector('#targetJson').innerHTML = json.regular 
+      }) 
    })
 
   </script>

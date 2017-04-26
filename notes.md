@@ -78,11 +78,38 @@ how servers recieve ajax requests ...
 
   ## respond from php with html partials .
 
-   ```php
-   // allow cores 
-   header("Access-Control-Allow-Origin: *");
-   ```
+  ```php
+  // allow cores 
+  header("Access-Control-Allow-Origin: *");
+  header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH');
+  header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With "); 
+  // html assembling  
+  echo "<h1>";
+  echo "this is an html response send with php from a different origin";
+  echo "</h1>";
+  ```
+  ```javascript 
+   function ajax(url , cb){
+    var xhr = new XMLHttpRequest()
+    xhr.open("GET" , url , true ) 
+    xhr.onreadystatechange = function(){
+      if(xhr.readyState == 4){
+        cb(xhr.responseText)
+      } 
+    }
+    // not needed ? hmm
+    xhr.setRequestHeader("Content-Type","application/json");
+    xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+    xhr.send()
+   } 
 
+   document.querySelector('#fireHtml').addEventListener('click' , ()=>{
+     var url = "http://localhost:3000" 
+     ajax(url , (html)=>{
+       document.querySelector('#targetJson').innerHTML = html
+     })
+   })
+  ``` 
 
 
 

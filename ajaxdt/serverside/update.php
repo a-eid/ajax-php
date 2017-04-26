@@ -33,7 +33,8 @@ $categories = [
 /**
 * returns an array of objects {id: number , name: name}
 **/
-echo json_encode($categories[ucfirst(strtolower($_POST['category']))]);
+if( $_POST['category'])
+  echo json_encode($categories[ucfirst(strtolower($_POST['category']))]);
 
 
 

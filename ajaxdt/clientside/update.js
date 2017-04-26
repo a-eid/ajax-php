@@ -13,7 +13,7 @@
       if(xhr.readyState == 4 && xhr.status == 200){
         if(xhr.responseText){
           options.success(
-            options.dataType =='json'?JSON.parse(xhr.responseText):xhr.responseText
+            options.dataType =='json' ? JSON.parse(xhr.responseText) : xhr.responseText
           )
         }else{
           options.error("something went wrong")
@@ -37,7 +37,7 @@
       multipart: false , 
       method:"POST" , 
       data: {
-        category: e.target.value
+        category: category.options[category.selectedIndex].value 
       } , 
       dataType: 'json' , 
       success: function(json){
